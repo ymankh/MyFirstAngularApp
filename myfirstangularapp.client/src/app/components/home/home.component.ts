@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 interface SubService {
   subServiceID: number;
@@ -17,11 +17,11 @@ interface WeatherForecast {
 }
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.css',
 })
-export class AppComponent implements OnInit {
+export class HomeComponent {
   public forecasts: WeatherForecast[] = [];
 
   constructor(private http: HttpClient) {}
@@ -31,14 +31,16 @@ export class AppComponent implements OnInit {
   }
 
   getForecasts() {
-    this.http.get<WeatherForecast[]>('https://localhost:7049/api/Services').subscribe(
-      (result) => {
-        this.forecasts = result;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+    this.http
+      .get<WeatherForecast[]>('https://localhost:7049/api/Services')
+      .subscribe(
+        (result: WeatherForecast[]) => {
+          this.forecasts = result;
+        },
+        (error: Error) => {
+          console.error(error);
+        }
+      );
   }
 
   title = 'myfirstangularapp.client';

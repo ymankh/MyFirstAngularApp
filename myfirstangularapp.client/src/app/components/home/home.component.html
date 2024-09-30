@@ -1,0 +1,24 @@
+<h1 id="tableLabel">Services Table</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+
+<table *ngIf="forecasts">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>ServiceImage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let forecast of forecasts">
+      <td>{{ forecast.serviceID }}</td>
+      <td>{{ forecast.serviceName }}</td>
+      <td>{{ forecast.serviceDescription }}</td>
+      <td>{{ forecast.serviceImage }}</td>
+      <td><a class="btn btn-primary" routerLink="/sub-services/{{forecast.serviceID}}">SubServices</a></td>
+    </tr>
+  </tbody>
+</table>
