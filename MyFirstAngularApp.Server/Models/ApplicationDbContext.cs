@@ -8,6 +8,7 @@ namespace MyFirstAngularApp.Server.Models
     {
         public DbSet<Service> Services { get; set; }
         public DbSet<SubService> SubServices { get; set; }
+        public DbSet<CustomUser> CustomUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

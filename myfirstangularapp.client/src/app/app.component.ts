@@ -8,21 +8,20 @@ interface SubService {
   subServiceImage: string;
   serviceID: number;
 }
-interface WeatherForecast {
+interface Service {
   serviceID: number;
   serviceName: string;
   serviceDescription: string;
   serviceImage: string;
   subServices: SubService[];
 }
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  public forecasts: WeatherForecast[] = [];
+  public forecasts: Service[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -31,7 +30,7 @@ export class AppComponent implements OnInit {
   }
 
   getForecasts() {
-    this.http.get<WeatherForecast[]>('https://localhost:7049/api/Services').subscribe(
+    this.http.get<Service[]>('https://localhost:7049/api/Services').subscribe(
       (result) => {
         this.forecasts = result;
       },

@@ -7,13 +7,17 @@ import { AppComponent } from './app.component';
 import { SubServicesComponent } from './components/sub-services/sub-services.component';
 import { HomeComponent } from './components/home/home.component';
 import { SingleSubServiceComponent } from './components/single-sub-service/single-sub-service.component';
+import { SubServicesDetailesComponent } from './components/sub-services-detailes/sub-services-detailes.component';
+import { SubsecriptionComponent } from './components/subsecription/subsecription.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SubServicesComponent,
     HomeComponent,
-    SingleSubServiceComponent
+    SingleSubServiceComponent,
+    SubServicesDetailesComponent,
+    SubsecriptionComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,

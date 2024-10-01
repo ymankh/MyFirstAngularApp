@@ -8,7 +8,7 @@ interface SubService {
   subServiceImage: string;
   serviceID: number;
 }
-interface WeatherForecast {
+interface Service {
   serviceID: number;
   serviceName: string;
   serviceDescription: string;
@@ -22,19 +22,19 @@ interface WeatherForecast {
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  public forecasts: WeatherForecast[] = [];
+  public forecasts: Service[] = [];
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.getForecasts();
+    this.getServices();
   }
 
-  getForecasts() {
+  getServices() {
     this.http
-      .get<WeatherForecast[]>('https://localhost:7049/api/Services')
+      .get<Service[]>('https://localhost:7049/api/Services')
       .subscribe(
-        (result: WeatherForecast[]) => {
+        (result: Service[]) => {
           this.forecasts = result;
         },
         (error: Error) => {

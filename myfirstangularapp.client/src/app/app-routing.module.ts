@@ -8,6 +8,7 @@ const routes: Routes = [
   {path: '', pathMatch: 'full', component: HomeComponent},
   {path: 'sub-services/:serviceID', component: SubServicesComponent},
   {path: 'sub-services/:serviceID/:subServiceID', component: SingleSubServiceComponent},
+  // {path: }
 ];
 
 
