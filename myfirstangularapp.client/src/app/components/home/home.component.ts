@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { HttpService } from '../../services/http.service';
 
 interface SubService {
   subServiceID: number;
@@ -22,25 +23,27 @@ interface Service {
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  public forecasts: Service[] = [];
+  public services: Service[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpService) {}
 
   ngOnInit() {
     this.getServices();
   }
 
   getServices() {
-    this.http
-      .get<Service[]>('http://localhost:5074/api/Services')
-      .subscribe(
-        (result: Service[]) => {
-          this.forecasts = result;
-        },
-        (error: Error) => {
-          console.error(error);
-        }
-      );
+    this.http.getServices().subscribe(
+      (result: Service[]) => {
+        this.services = result;
+      },
+      (error: Error) => {
+        console.error(error);
+      }
+    );
+  }
+
+  getImageUrl(imagePath: string) {
+    return `http://localhost:5074/${imagePath}`;
   }
 
   title = 'myfirstangularapp.client';

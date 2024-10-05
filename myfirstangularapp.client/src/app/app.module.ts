@@ -11,6 +11,8 @@ import { SubServicesDetailsComponent } from './components/sub-services-details/s
 import { RegisterComponent } from './components/register/register.component';
 import { SubscriptionComponent } from './components/subscription/subscription.component';
 import { HeaderComponent } from './components/header/header.component';
+import { AddServiceComponent } from './components/add-service/add-service.component';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,8 +24,14 @@ import { HeaderComponent } from './components/header/header.component';
     RegisterComponent,
     SubscriptionComponent,
     HeaderComponent,
+    AddServiceComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

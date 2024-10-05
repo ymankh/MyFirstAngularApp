@@ -2,8 +2,7 @@
 
 <p>This component demonstrates fetching data from the server.</p>
 
-
-<table *ngIf="forecasts">
+<table *ngIf="services">
   <thead>
     <tr>
       <th>id</th>
@@ -13,12 +12,27 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let forecast of forecasts">
-      <td>{{ forecast.serviceID }}</td>
-      <td>{{ forecast.serviceName }}</td>
-      <td>{{ forecast.serviceDescription }}</td>
-      <td>{{ forecast.serviceImage }}</td>
-      <td><a class="btn btn-primary" routerLink="/sub-services/{{forecast.serviceID}}">SubServices</a></td>
+    @for (service of services; track service.serviceID) {
+
+    <tr>
+      <td>{{ service.serviceID }}</td>
+      <td>{{ service.serviceName }}</td>
+      <td>{{ service.serviceDescription }}</td>
+      <td>
+        <img
+          width="150"
+          [src]="getImageUrl(service.serviceImage)"
+          [alt]="service.serviceName"
+        />
+      </td>
+      <td>
+        <a
+          class="btn btn-primary"
+          routerLink="/sub-services/{{ service.serviceID }}"
+          >SubServices</a
+        >
+      </td>
     </tr>
+    }
   </tbody>
 </table>

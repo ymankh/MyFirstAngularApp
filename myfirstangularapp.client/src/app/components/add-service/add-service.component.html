@@ -1,0 +1,72 @@
+<div class="container">
+  <h2>Create New Service</h2>
+  <form
+    [formGroup]="serviceForm"
+    (ngSubmit)="onSubmit()"
+    enctype="multipart/form-data"
+  >
+    <div class="form-group">
+      <label for="serviceName">Service Name</label>
+      <input
+        type="text"
+        id="serviceName"
+        class="form-control"
+        formControlName="serviceName"
+      />
+      <div
+        *ngIf="
+          serviceForm.get('serviceName')?.invalid &&
+          serviceForm.get('serviceName')?.touched
+        "
+        class="text-danger"
+      >
+        Service name is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="serviceDescription">Service Description</label>
+      <textarea
+        id="serviceDescription"
+        class="form-control"
+        formControlName="serviceDescription"
+      ></textarea>
+      <div
+        *ngIf="
+          serviceForm.get('serviceDescription')?.invalid &&
+          serviceForm.get('serviceDescription')?.touched
+        "
+        class="text-danger"
+      >
+        Service description is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="serviceImage">Service Image</label>
+      <input
+        type="file"
+        id="serviceImage"
+        (change)="onFileSelected($event)"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          serviceForm.get('serviceImage')?.invalid &&
+          serviceForm.get('serviceImage')?.touched
+        "
+        class="text-danger"
+      >
+        Service image is required.
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="serviceForm.invalid"
+    >
+      Create Service
+    </button>
+  </form>
+</div>

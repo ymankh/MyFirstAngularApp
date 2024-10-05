@@ -13,4 +13,7 @@ export class HttpService {
   getServices(): Observable<Service[]> {
     return this.http.get<Service[]>(this.root + '/Services');
   }
+  addService(formData: FormData): Observable<Service> {
+    return this.http.post<Service>(this.root + '/services', formData);
+  }
 }

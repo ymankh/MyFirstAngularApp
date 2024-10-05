@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyFirstAngularApp.Server.Models;
+using MyFirstAngularApp.Server.DTOs.ServiceDTOs;
+using MyFirstAngularApp.Server.shared;
 
 namespace MyFirstAngularApp.Server.Controllers
 {
@@ -77,13 +79,21 @@ namespace MyFirstAngularApp.Server.Controllers
         // POST: api/Services
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Service>> PostService(Service service)
+        public async Task<ActionResult<Service>> PostService([FromForm] CreateServiceDto service)
         {
+            var serviceImage = ImageSaver.SaveImage(service.ServiceImage);
+            var newService = new Service
+            {
+                ServiceName = service.ServiceName,
+                ServiceDescription = service.ServiceDescription,
+                ServiceImage = serviceImage,
+                
+            };
 
-            _context.Services.Add(service);
+            _context.Services.Add(newService);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetService", new { id = service.ServiceID }, service);
+            return CreatedAtAction("GetService", new { id = newService.ServiceID }, service);
         }
 
         // DELETE: api/Services/5
