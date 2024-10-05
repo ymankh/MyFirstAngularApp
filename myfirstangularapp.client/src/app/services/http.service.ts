@@ -11,42 +11,47 @@ import {
   CreateSubscription,
 } from '../shared/interfaces';
 
+export let root = 'https://localhost:5084';
+
+let apiRoot = root + '/api';
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
-  root = 'http://localhost:5074/api';
   constructor(private readonly http: HttpClient) {}
 
   getServices(): Observable<Service[]> {
-    return this.http.get<Service[]>(this.root + '/Services');
+    return this.http.get<Service[]>(apiRoot + '/Services');
   }
   addService(formData: FormData): Observable<Service> {
-    return this.http.post<Service>(this.root + '/services', formData);
+    return this.http.post<Service>(apiRoot + '/services', formData);
+  }
+
+  getSingleServices(id: number): Observable<Service> {
+    let link = `${apiRoot}/Services/${id}`;
+    return this.http.get<Service>(link);
   }
 
   getSingleSubService(id: number): Observable<SubService> {
-    return this.http.get<SubService>(
-      `http://localhost:5074/api/SubServices/${id}`
-    );
+    return this.http.get<SubService>(`${apiRoot}/SubServices/${id}`);
   }
 
   login(email: string, password: string): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(this.root + '/Auth/login', {
+    return this.http.post<{ token: string }>(apiRoot + '/Auth/login', {
       email: email.toLocaleLowerCase().trim(),
       password,
     });
   }
 
   getCurrentUser(): Observable<User> {
-    return this.http.get<User>(this.root + '/api/Auth/GetUser', {
+    return this.http.get<User>(apiRoot + '/Auth/GetUser', {
       headers: this.headers,
     });
   }
 
   getSubscriptions(): Observable<Subscription[]> {
     return this.http.get<Subscription[]>(
-      this.root + '/Subscription/GetSubscriptions',
+      apiRoot + '/Subscription/GetSubscriptions',
       {
         headers: this.headers,
       }
@@ -57,10 +62,8 @@ export class HttpService {
     subscription: CreateSubscription
   ): Observable<Subscription> {
     return this.http.post<Subscription>(
-      this.root + '/Subscription/CreateSubscription',
-      {
-        subscription,
-      },
+      apiRoot + '/Subscription/CreateSubscription',
+      subscription,
       {
         headers: this.headers,
       }

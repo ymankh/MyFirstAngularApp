@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 import { ToastService } from '../../shared/toast.service';
-import { Plan } from '../../shared/interfaces';
+import { Plan, User } from '../../shared/interfaces';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-subscription',
@@ -9,16 +10,34 @@ import { Plan } from '../../shared/interfaces';
   styleUrl: './subscription.component.css',
 })
 export class SubscriptionComponent {
-  constructor(private http: HttpService, private toastService: ToastService) {}
+  constructor(
+    private http: HttpService,
+    private toastService: ToastService,
+    private route: ActivatedRoute
+  ) {}
+  currentUser: User | null = null;
+
+  ngOnInit() {
+    this.http
+      .getCurrentUser()
+      .subscribe((result) => (this.currentUser = result));
+  }
 
   chosePlan(plan: Plan) {
-    if (this.http.IsLoggedIn) {
+    console.log({
+      plan,
+      subServiceID: +this.route.snapshot.params['subServiceID'],
+      customUserId: this.currentUser!.customUserId,
+    });
+
+    if (this.currentUser) {
       this.http
         .createSubscription({
           plan,
-          subServiceID: 1,
-          customUserId: 1,
+          subServiceID: +this.route.snapshot.params['subServiceID'],
+          customUserId: this.currentUser.customUserId,
         })
+
         .subscribe(
           (result) => {
             this.toastService.success('Subscription Created');

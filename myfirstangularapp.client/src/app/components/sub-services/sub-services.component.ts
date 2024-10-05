@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpService } from '../../services/http.service';
 interface SubService {
   subServiceID: number;
   subServiceName: string;
@@ -22,19 +23,12 @@ interface Service {
 })
 export class SubServicesComponent {
   id: number = 0;
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  constructor(private route: ActivatedRoute, private http: HttpService) {
     this.id = this.route.snapshot.params['serviceID'];
   }
 
   ngOnInit() {
-    this.getServices();
-  }
-  forecasts: SubService[] = [];
-  getServices() {
-    let link = `http://localhost:5074/api/Services/${this.id}`;
-    console.log(link);
-
-    this.http.get<Service>(link).subscribe(
+    this.http.getSingleServices(this.id).subscribe(
       (result: Service) => {
         this.forecasts = result.subServices;
       },
@@ -43,4 +37,5 @@ export class SubServicesComponent {
       }
     );
   }
+  forecasts: SubService[] = [];
 }

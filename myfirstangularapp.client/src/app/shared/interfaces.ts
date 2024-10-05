@@ -38,5 +38,4 @@ export interface CreateSubscription {
   subServiceID: number;
   customUserId: number;
 }
-
 export type Plan = 'Monthly' | 'Annual' | 'Weekly';

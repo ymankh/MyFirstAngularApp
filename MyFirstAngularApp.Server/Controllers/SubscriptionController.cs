@@ -26,20 +26,20 @@ namespace MyFirstAngularApp.Server.Controllers
         }
         [Authorize]
         [HttpPost("CreateSubscription")]
-        public IActionResult CreateSubscription([FromBody] CreateSubscriptionDto createSubscription)
+        public IActionResult CreateSubscription(CreateSubscriptionDto createSubscription)
         {
             var user = GetCurrentUser();
             DateTime endDate;
             switch (createSubscription.Plan.ToLower())
             {
                 case "monthly":
-                    endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                    endDate = new DateTime().AddMonths(1);
                     break;
                 case "annual":
-                    endDate = new DateTime(DateTime.Now.Year, 12, 31);
+                    endDate = new DateTime().AddYears(1);
                     break;
                 case "weekly":
-                    endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 7);
+                    endDate = new DateTime().AddDays(7);
                     break;
                 default:
                     return BadRequest("Invalid plan. plan must be one of the following: Monthly, Annual, Weekly");

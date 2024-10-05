@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 import { single } from 'rxjs';
+import { root } from '../../services/http.service';
 
 interface SubService {
   subServiceID: number;
@@ -45,7 +46,7 @@ export class HomeComponent {
   }
 
   getImageUrl(imagePath: string) {
-    return `http://localhost:5074/${imagePath}`;
+    return `${root}/${imagePath}`;
   }
 
   title = 'myfirstangularapp.client';
