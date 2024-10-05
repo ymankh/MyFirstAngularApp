@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SubService, type Service } from '../interfaces/servicesInterfaces';
+import { User } from '../shared/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -23,16 +24,18 @@ export class HttpService {
     );
   }
 
-  login(email: string, password: string) {
-    this.http.post<{ token: string }>(
-      'http://localhost:5074/api/Auth/login',
-      {
-        email,
-        password,
-      },
+  login(email: string, password: string): Observable<{ token: string }> {
+    return this.http.post<{ token: string }>(
+      this.root + '/api/Auth/login',
+      { email, password },
       { headers: this.headers }
     );
   }
+
+  getCurrentUser(): Observable<User> {
+    return this.http.get<User>(this.root + '/api/Auth/GetUser');
+  }
+
   get headers() {
     return new HttpHeaders({
       'Content-Type': 'application/json',

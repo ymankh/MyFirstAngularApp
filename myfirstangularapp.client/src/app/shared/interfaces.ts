@@ -13,3 +13,11 @@ export interface Service {
   serviceImage: string;
   subServices: SubService[];
 }
+
+export interface User {
+  customUserId: number,
+  userName: string,
+  password: string,
+  email: string,
+  phoneNumber?: string
+}

@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgModel } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpService } from '../../services/http.service';
 
 @Component({
   selector: 'app-login',
@@ -13,34 +14,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   imports: [CommonModule, ReactiveFormsModule, RouterModule, FormsModule],
 })
 export class LoginComponent {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpService) {}
 
   email = '';
   password = '';
   onSubmit() {
-    this.http
-      .post<{ token: string }>(
-        'http://localhost:5074/api/Auth/login',
-        {
-          email: this.email,
-          password: this.password,
-        },
-        { headers: this.headers }
-      )
-      .subscribe((result) => {
-        localStorage.setItem('token', result.token);
-      });
-  }
-
-  getCurrentUser() {
-    return this.http.get('').subscribe((result) => {
-      console.log(result);
-    });
-  }
-  get headers() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json', 
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    this.http.login(this.email, this.password).subscribe((result) => {
+      localStorage.setItem('token', result.token);
     });
   }
 }
