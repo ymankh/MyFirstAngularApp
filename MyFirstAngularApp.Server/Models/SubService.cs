@@ -25,5 +25,6 @@ namespace MyFirstAngularApp.Server.Models
 
         // Navigation property to Service
         public Service Service { get; set; }
+        public ICollection<Subscription> Subscriptions { get; set; }
     }
 }
