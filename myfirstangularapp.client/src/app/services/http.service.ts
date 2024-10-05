@@ -46,7 +46,7 @@ export class HttpService {
 
   getSubscriptions(): Observable<Subscription[]> {
     return this.http.get<Subscription[]>(
-      this.root + '/api/Subscription/GetSubscriptions',
+      this.root + '/Subscription/GetSubscriptions',
       {
         headers: this.headers,
       }
@@ -57,7 +57,7 @@ export class HttpService {
     subscription: CreateSubscription
   ): Observable<Subscription> {
     return this.http.post<Subscription>(
-      this.root + '/api/Subscription/CreateSubscription',
+      this.root + '/Subscription/CreateSubscription',
       {
         subscription,
       },
