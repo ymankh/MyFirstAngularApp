@@ -2,8 +2,10 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using MyFirstAngularApp.Server.Helpers;
 using MyFirstAngularApp.Server.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace MyFirstAngularApp.Server
 {
@@ -62,31 +64,36 @@ namespace MyFirstAngularApp.Server
                 // options.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
             }); ;
             builder.Services.AddEndpointsApiExplorer();
+            // Add Swagger configuration
             builder.Services.AddSwaggerGen(c =>
             {
-                c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-                    Description = "Please enter JWT with Bearer into field",
                     Name = "Authorization",
-                    Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\""
                 });
 
-                c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
-                        new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                        new OpenApiSecurityScheme
                         {
-                            Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                            Reference = new OpenApiReference
                             {
-                                Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                                Type = ReferenceType.SecurityScheme,
                                 Id = "Bearer"
                             }
                         },
-                        new string[] {}
+                        Array.Empty<string>()
                     }
                 });
+
+                // This adds "Bearer" automatically when the token is entered in Swagger
+                c.OperationFilter<AppendBearerTokenOperationFilter>();
             });
             // Configure SQLite database
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -132,6 +139,17 @@ namespace MyFirstAngularApp.Server
             app.MapFallbackToFile("/index.html");
 
             app.Run();
+        }
+    }
+}
+public class AppendBearerTokenOperationFilter : IOperationFilter
+{
+    public void Apply(OpenApiOperation operation, OperationFilterContext context)
+    {
+        var authHeaderParameter = operation.Parameters?.FirstOrDefault(p => p.Name == "Authorization");
+        if (authHeaderParameter != null)
+        {
+            authHeaderParameter.Description = "Enter your JWT token. Bearer will be added automatically.";
         }
     }
 }

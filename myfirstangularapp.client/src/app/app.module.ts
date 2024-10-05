@@ -7,8 +7,10 @@ import { AppComponent } from './app.component';
 import { SubServicesComponent } from './components/sub-services/sub-services.component';
 import { HomeComponent } from './components/home/home.component';
 import { SingleSubServiceComponent } from './components/single-sub-service/single-sub-service.component';
-import { SubServicesDetailesComponent } from './components/sub-services-detailes/sub-services-detailes.component';
-import { SubsecriptionComponent } from './components/subsecription/subsecription.component';
+import { SubServicesDetailsComponent } from './components/sub-services-details/sub-services-details.component';
+import { RegisterComponent } from './components/register/register.component';
+import { SubscriptionComponent } from './components/subscription/subscription.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -16,14 +18,13 @@ import { SubsecriptionComponent } from './components/subsecription/subsecription
     SubServicesComponent,
     HomeComponent,
     SingleSubServiceComponent,
-    SubServicesDetailesComponent,
-    SubsecriptionComponent
+    SubServicesDetailsComponent,
+    RegisterComponent,
+    SubscriptionComponent,
+    HeaderComponent,
   ],
-  imports: [
-    BrowserModule, HttpClientModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

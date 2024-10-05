@@ -31,7 +31,7 @@ export class SubServicesComponent {
   }
   forecasts: SubService[] = [];
   getServices() {
-    let link = `https://localhost:7049/api/Services/${this.id}`;
+    let link = `http://localhost:5074/api/Services/${this.id}`;
     console.log(link);
 
     this.http.get<Service>(link).subscribe(

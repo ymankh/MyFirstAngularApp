@@ -9,9 +9,14 @@
     <p class="card-text">
       {{ item.subServiceDescription }}
     </p>
+    <a
+      [routerLink]="'/sub-services/{{ id }}/{{ item.subServiceID }}'"
+      class="btn btn-primary"
+      >View SubService</a
+    >
   </div>
 </div>
-} }
-@else {
-    <h1>No SubServices found for this Service</h1>
+
+} } @else {
+<h1>No SubServices found for this Service</h1>
 }

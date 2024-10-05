@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -27,6 +28,7 @@ namespace MyFirstAngularApp.Server.Controllers
         [HttpPost("register")]
         public IActionResult Register([FromBody] UserRegister register)
         {
+
             var user = context.CustomUsers.FirstOrDefault(u => u.Email == register.Email);
             if (user != null) return Unauthorized();
 
@@ -41,6 +43,19 @@ namespace MyFirstAngularApp.Server.Controllers
             return Created();
         }
 
+        [HttpGet("GetUser")]
+        [Authorize]
+        public IActionResult GetUser()
+        {
+            var user = GetCurrentUser();
+            return Ok(user);
+        }
 
+        CustomUser GetCurrentUser()
+        {
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var user = context.CustomUsers.Find(userId);
+            return user;
+        }
     }
 }

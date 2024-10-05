@@ -9,19 +9,20 @@ import { SubService } from '../../shared/interfaces';
   styleUrl: './single-sub-service.component.css',
 })
 export class SingleSubServiceComponent {
+  id = 0;
   service?: SubService;
   constructor(private route: ActivatedRoute, private http: HttpClient) {
+    console.log('singleSubServiceComponent');
     route.params.subscribe((params) => {
-      this.service = params['serviceID'];
+      this.id = params['subServiceID'];
     });
   }
-  onInit() {
-    console.log('singleSubServiceComponent');
-    
+  ngOnInit(): void {
+    this.getForecasts();
   }
   getForecasts() {
     this.http
-      .get<SubService>(`https://localhost:7049/api/SubServices/${this.service}`)
+      .get<SubService>(`http://localhost:5074/api/SubServices/${this.id}`)
       .subscribe(
         (result: SubService) => {
           this.service = result;

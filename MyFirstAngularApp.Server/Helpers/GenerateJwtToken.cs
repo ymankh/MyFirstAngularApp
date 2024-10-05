@@ -23,7 +23,7 @@ namespace MyFirstAngularApp.Server.Helpers
                 issuer: config["Jwt:Issuer"],
                 audience: config["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(30),
+                expires: DateTime.Now.AddDays(30),
                 signingCredentials: credentials
             );
 

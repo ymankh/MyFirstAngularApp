@@ -1,2 +1,9 @@
-<h1>Single SubService</h1>
-
+<div class="card" style="width: 18rem">
+  <div class="card-body">
+    <h5 class="card-title">{{service?.subServiceName}}</h5>
+    <p class="card-text">
+     {{service?.subServiceDescription}}
+    </p>
+    <a routerLink="/subscription/{{service?.serviceID}}" class="btn btn-primary">View Subscription</a>
+  </div>
+</div>

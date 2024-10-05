@@ -32,7 +32,7 @@ export class HomeComponent {
 
   getServices() {
     this.http
-      .get<Service[]>('https://localhost:7049/api/Services')
+      .get<Service[]>('http://localhost:5074/api/Services')
       .subscribe(
         (result: Service[]) => {
           this.forecasts = result;

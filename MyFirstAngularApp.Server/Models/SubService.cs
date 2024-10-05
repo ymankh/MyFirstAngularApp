@@ -11,6 +11,8 @@ namespace MyFirstAngularApp.Server.Models
         [Required]
         [StringLength(50)]
         public string SubServiceName { get; set; }
+        public string? SubServiceImagePath { get; set; }
+
 
         [StringLength(500)]
         public string SubServiceDescription { get; set; }
