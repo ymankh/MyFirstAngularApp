@@ -15,9 +15,26 @@ export interface Service {
 }
 
 export interface User {
-  customUserId: number,
-  userName: string,
-  password: string,
-  email: string,
-  phoneNumber?: string
+  customUserId: number;
+  userName: string;
+  password: string;
+  email: string;
+  phoneNumber?: string;
+}
+
+export interface Subscription {
+  subscriptionID: number;
+  subServiceID: number;
+  customUserId: number;
+  customUser?: User;
+  plan: string;
+  startDate: string;
+  endDate: string;
+  subService?: SubService;
+}
+
+export interface CreateSubscription {
+  plan: 'Monthly' | 'Annual' | 'Weekly';
+  subServiceID: number;
+  customUserId: number;
 }

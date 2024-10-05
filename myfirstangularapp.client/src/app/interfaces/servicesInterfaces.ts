@@ -1,3 +1,5 @@
+import { User } from "../shared/interfaces";
+
 export interface SubService {
   subServiceID: number;
   subServiceName: string;
@@ -13,3 +15,5 @@ export interface Service {
   serviceImage: string;
   subServices: SubService[];
 }
+
+

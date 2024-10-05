@@ -1,8 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SubService, type Service } from '../interfaces/servicesInterfaces';
-import { User } from '../shared/interfaces';
+import {
+  type SubService,
+  type Service,
+} from '../interfaces/servicesInterfaces';
+import {
+  type User,
+  type Subscription,
+  CreateSubscription,
+} from '../shared/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +39,32 @@ export class HttpService {
   }
 
   getCurrentUser(): Observable<User> {
-    return this.http.get<User>(this.root + '/api/Auth/GetUser');
+    return this.http.get<User>(this.root + '/api/Auth/GetUser', {
+      headers: this.headers,
+    });
+  }
+
+  getSubscriptions(): Observable<Subscription[]> {
+    return this.http.get<Subscription[]>(
+      this.root + '/api/Subscription/GetSubscriptions',
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
+  createSubscription(
+    subscription: CreateSubscription
+  ): Observable<Subscription> {
+    return this.http.post<Subscription>(
+      this.root + '/api/Subscription/CreateSubscription',
+      {
+        subscription,
+      },
+      {
+        headers: this.headers,
+      }
+    );
   }
 
   get headers() {
