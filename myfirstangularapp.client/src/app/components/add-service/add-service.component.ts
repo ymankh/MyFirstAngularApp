@@ -1,18 +1,24 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../services/http.service';
+import { Router } from '@angular/router';
+import { ToastService } from '../../shared/toast.service';
 
 @Component({
   selector: 'app-add-service',
   templateUrl: './add-service.component.html',
   styleUrl: './add-service.component.css',
 })
-
 export class AddServiceComponent {
   serviceForm: FormGroup;
   selectedFile: File | null = null;
 
-  constructor(private fb: FormBuilder, private http: HttpService) {
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpService,
+    private router: Router,
+    private toast: ToastService
+  ) {
     this.serviceForm = this.fb.group({
       serviceName: ['', Validators.required],
       serviceDescription: ['', Validators.required],
@@ -43,6 +49,8 @@ export class AddServiceComponent {
     this.http.addService(formData).subscribe(
       (response) => {
         console.log('Service created successfully!', response);
+        this.toast.success('Service created successfully!');
+        this.router.navigate(['/']);
       },
       (error) => {
         console.error('Error creating service:', error);

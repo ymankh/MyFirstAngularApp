@@ -13,6 +13,7 @@ import { SubscriptionComponent } from './components/subscription/subscription.co
 import { HeaderComponent } from './components/header/header.component';
 import { AddServiceComponent } from './components/add-service/add-service.component';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { EditServiceComponent } from './components/edit-service/edit-service.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
     SubscriptionComponent,
     HeaderComponent,
     AddServiceComponent,
+    EditServiceComponent,
   ],
   imports: [
     BrowserModule,

@@ -11,7 +11,7 @@ import {
   CreateSubscription,
 } from '../shared/interfaces';
 
-export let root = 'https://localhost:5084';
+export let root = 'http://localhost:5094';
 
 let apiRoot = root + '/api';
 @Injectable({

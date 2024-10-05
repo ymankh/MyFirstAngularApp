@@ -1,6 +1,10 @@
-<h1 id="tableLabel">Services Table</h1>
-
 <div class="container">
+  <div class="d-flex justify-content-between my-4">
+    <h1 id="tableLabel">Services Table</h1>
+    <div>
+      <a routerLink="/add-service" class="btn btn-primary">Add Service</a>
+    </div>
+  </div>
   @if(services.length > 0) {
   <table services>
     <thead>
@@ -26,11 +30,18 @@
           />
         </td>
         <td>
-          <a
-            class="btn btn-primary"
-            routerLink="/sub-services/{{ service.serviceID }}"
-            >SubServices</a
-          >
+          <div class="btn-group">
+            <a
+              class="btn btn-primary"
+              routerLink="/sub-services/{{ service.serviceID }}"
+              >SubServices</a
+            >
+            <a
+              routerLink="/edit-service/{{ service.serviceID }}"
+              class="btn btn-secondary"
+              >Edit</a
+            >
+          </div>
         </td>
       </tr>
       }
