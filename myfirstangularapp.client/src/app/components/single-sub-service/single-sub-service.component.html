@@ -1,9 +1,15 @@
-<div class="card" style="width: 18rem">
-  <div class="card-body">
-    <h5 class="card-title">{{service?.subServiceName}}</h5>
-    <p class="card-text">
-     {{service?.subServiceDescription}}
-    </p>
-    <a routerLink="/subscription/{{service?.serviceID}}" class="btn btn-primary">View Subscription</a>
+<div class="vh-100">
+  <div class="card m-auto my-auto" style="width: 18rem">
+    <div class="card-body">
+      <h5 class="card-title">{{ service?.subServiceName }}</h5>
+      <p class="card-text">
+        {{ service?.subServiceDescription }}
+      </p>
+      <a
+        routerLink="/subscription/{{ service?.serviceID }}"
+        class="btn btn-primary"
+        >View Subscription</a
+      >
+    </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SubService } from '../../shared/interfaces';
+import { HttpService } from '../../services/http.service';
 
 @Component({
   selector: 'app-single-sub-service',
@@ -11,7 +11,7 @@ import { SubService } from '../../shared/interfaces';
 export class SingleSubServiceComponent {
   id = 0;
   service?: SubService;
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  constructor(private route: ActivatedRoute, private http: HttpService) {
     console.log('singleSubServiceComponent');
     route.params.subscribe((params) => {
       this.id = params['subServiceID'];
@@ -21,8 +21,7 @@ export class SingleSubServiceComponent {
     this.getForecasts();
   }
   getForecasts() {
-    this.http
-      .get<SubService>(`http://localhost:5074/api/SubServices/${this.id}`)
+    this.http.getSingleSubService(this.id)
       .subscribe(
         (result: SubService) => {
           this.service = result;

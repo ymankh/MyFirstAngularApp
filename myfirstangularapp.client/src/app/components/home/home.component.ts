@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { HttpService } from '../../services/http.service';
+import { single } from 'rxjs';
 
 interface SubService {
   subServiceID: number;
@@ -26,6 +27,7 @@ export class HomeComponent {
   public services: Service[] = [];
 
   constructor(private http: HttpService) {}
+  loading = single<boolean>();
 
   ngOnInit() {
     this.getServices();

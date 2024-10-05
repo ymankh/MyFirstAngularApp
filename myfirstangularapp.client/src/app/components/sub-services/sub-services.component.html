@@ -1,22 +1,29 @@
-@if(forecasts.length > 0){ @for (item of forecasts; track id) {
-<div class="card">
-  <div class="card-header">
-    <h3 class="card-title">
-      {{ item.subServiceName }}
-    </h3>
-  </div>
-  <div class="card-body">
-    <p class="card-text">
-      {{ item.subServiceDescription }}
-    </p>
-    <a
-      [routerLink]="'/sub-services/{{ id }}/{{ item.subServiceID }}'"
-      class="btn btn-primary"
-      >View SubService</a
-    >
+<div class="container">
+  <h2>Sub Services</h2>
+  <div class="row mt-4">
+    @if(forecasts.length > 0){ @for (item of forecasts; track id) {
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-header">
+          <h3 class="card-title">
+            {{ item.subServiceName }}
+          </h3>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            {{ item.subServiceDescription }}
+          </p>
+          <a
+            routerLink="/sub-services/{{ id }}/{{ item.subServiceID }}"
+            class="btn btn-primary"
+            >View SubService</a
+          >
+        </div>
+      </div>
+    </div>
+
+    } } @else {
+    <h1>No SubServices found for this Service</h1>
+    }
   </div>
 </div>
-
-} } @else {
-<h1>No SubServices found for this Service</h1>
-}

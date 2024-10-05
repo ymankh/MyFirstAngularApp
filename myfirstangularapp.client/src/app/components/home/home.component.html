@@ -1,38 +1,42 @@
 <h1 id="tableLabel">Services Table</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<div class="container">
+  @if(services.length > 0) {
+  <table services>
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>ServiceImage</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (service of services; track service.serviceID) {
 
-<table *ngIf="services">
-  <thead>
-    <tr>
-      <th>id</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>ServiceImage</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (service of services; track service.serviceID) {
-
-    <tr>
-      <td>{{ service.serviceID }}</td>
-      <td>{{ service.serviceName }}</td>
-      <td>{{ service.serviceDescription }}</td>
-      <td>
-        <img
-          width="150"
-          [src]="getImageUrl(service.serviceImage)"
-          [alt]="service.serviceName"
-        />
-      </td>
-      <td>
-        <a
-          class="btn btn-primary"
-          routerLink="/sub-services/{{ service.serviceID }}"
-          >SubServices</a
-        >
-      </td>
-    </tr>
-    }
-  </tbody>
-</table>
+      <tr>
+        <td>{{ service.serviceID }}</td>
+        <td>{{ service.serviceName }}</td>
+        <td>{{ service.serviceDescription }}</td>
+        <td>
+          <img
+            width="150"
+            [src]="getImageUrl(service.serviceImage)"
+            [alt]="service.serviceName"
+          />
+        </td>
+        <td>
+          <a
+            class="btn btn-primary"
+            routerLink="/sub-services/{{ service.serviceID }}"
+            >SubServices</a
+          >
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  } @else {
+  <h2>No Services found</h2>
+  }
+</div>
