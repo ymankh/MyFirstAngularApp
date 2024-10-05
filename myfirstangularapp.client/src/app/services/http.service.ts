@@ -73,4 +73,7 @@ export class HttpService {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
   }
+  get IsLoggedIn() {
+    return localStorage.getItem('token') !== null;
+  }
 }
