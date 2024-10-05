@@ -7,10 +7,10 @@ namespace MyFirstAngularApp.Server.Models
     {
         [Key]
         public int SubscriptionID { get; set; }
+
         [ForeignKey("SubService")]
-
-
         public int SubServiceID { get; set; }
+
         [ForeignKey("CustomUser")]
         public int CustomUserId { get; set; }
 
