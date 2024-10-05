@@ -25,11 +25,10 @@ export class HttpService {
   }
 
   login(email: string, password: string): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(
-      this.root + '/api/Auth/login',
-      { email, password },
-      { headers: this.headers }
-    );
+    return this.http.post<{ token: string }>(this.root + '/Auth/login', {
+      email: email.toLocaleLowerCase().trim(),
+      password,
+    });
   }
 
   getCurrentUser(): Observable<User> {
