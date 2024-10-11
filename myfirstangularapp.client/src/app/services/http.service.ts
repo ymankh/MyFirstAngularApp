@@ -26,8 +26,9 @@ export class HttpService {
   addService(formData: FormData): Observable<Service> {
     return this.http.post<Service>(apiRoot + '/services', formData);
   }
-  updateService(formData: FormData): Observable<Service> {
-    return this.http.put<Service>(apiRoot + '/services', formData);
+
+  updateService(formData: FormData, id: number): Observable<Service> {
+    return this.http.put<Service>(apiRoot + `/services/${id}`, formData);
   }
 
   getSingleServices(id: number): Observable<Service> {

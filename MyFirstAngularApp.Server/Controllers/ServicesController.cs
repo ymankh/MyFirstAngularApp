@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyFirstAngularApp.Server.Models;
 using MyFirstAngularApp.Server.DTOs.ServiceDTOs;
 using MyFirstAngularApp.Server.shared;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace MyFirstAngularApp.Server.Controllers
 {
@@ -47,34 +41,34 @@ namespace MyFirstAngularApp.Server.Controllers
 
         // PUT: api/Services/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutService(int id, Service service)
-        {
-            if (id != service.ServiceID)
-            {
-                return BadRequest();
-            }
+        // [HttpPut("{id}")]
+        // public async Task<IActionResult> PutService(int id, Service service)
+        // {
+        //     if (id != service.ServiceID)
+        //     {
+        //         return BadRequest();
+        //     }
 
-            _context.Entry(service).State = EntityState.Modified;
+        //     _context.Entry(service).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ServiceExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //     try
+        //     {
+        //         await _context.SaveChangesAsync();
+        //     }
+        //     catch (DbUpdateConcurrencyException)
+        //     {
+        //         if (!ServiceExists(id))
+        //         {
+        //             return NotFound();
+        //         }
+        //         else
+        //         {
+        //             throw;
+        //         }
+        //     }
 
-            return NoContent();
-        }
+        //     return NoContent();
+        // }
 
         // POST: api/Services
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -87,13 +81,35 @@ namespace MyFirstAngularApp.Server.Controllers
                 ServiceName = service.ServiceName,
                 ServiceDescription = service.ServiceDescription,
                 ServiceImage = serviceImage,
-                
+
             };
 
             _context.Services.Add(newService);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetService", new { id = newService.ServiceID }, service);
+        }
+
+        [HttpPut("{id:int}")]
+        public IActionResult UpdateService(int id, [FromForm] CreateServiceDto service)
+        {
+
+            var oldService = _context.Services.Find(id);
+            if (oldService == null)
+                return NotFound();
+            var serviceImage = oldService.ServiceImage;
+            if (service.ServiceImage != null)
+                serviceImage = ImageSaver.SaveImage(service.ServiceImage);
+
+
+            oldService.ServiceName = service.ServiceName;
+            oldService.ServiceDescription = service.ServiceDescription;
+            oldService.ServiceImage = serviceImage;
+
+            _context.Services.Update(oldService);
+            _context.SaveChanges();
+
+            return CreatedAtAction("GetService", new { id = oldService.ServiceID }, service);
         }
 
         // DELETE: api/Services/5

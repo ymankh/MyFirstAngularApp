@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyFirstAngularApp.Server.DTOs.SubscriptionDTOs;
@@ -14,8 +10,6 @@ namespace MyFirstAngularApp.Server.Controllers
     [Route("api/[controller]")]
     public class SubscriptionController(ApplicationDbContext context) : ControllerBase
     {
-
-
         [Authorize]
         [HttpGet("GetSubscriptions")]
         public IActionResult GetSubscriptions()

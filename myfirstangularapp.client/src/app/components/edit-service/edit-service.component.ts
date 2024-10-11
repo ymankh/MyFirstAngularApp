@@ -56,15 +56,17 @@ export class EditServiceComponent {
       formData.append('ServiceImage', this.selectedFile);
     }
 
-    this.http.updateService(formData).subscribe(
-      (response) => {
-        console.log('Service created successfully!', response);
-        this.toast.success('Service created successfully!');
-        this.router.navigate(['/']);
-      },
-      (error) => {
-        console.error('Error creating service:', error);
-      }
-    );
+    this.http
+      .updateService(formData, +this.activeRout.snapshot.params['serviceID'])
+      .subscribe(
+        (response) => {
+          console.log('Service created successfully!', response);
+          this.toast.success('Service created successfully!');
+          this.router.navigate(['/']);
+        },
+        (error) => {
+          console.error('Error creating service:', error);
+        }
+      );
   }
 }
